@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathTutor - Aprende Matemáticas Jugando</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container text-center py-4">
+        <header class="hero-section animate__animated animate__fadeIn">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="title animate__animated animate__bounceIn">MathTutor</h1>
+                    <p class="subtitle">¡Aprende matemáticas de 6to grado jugando y divirtiéndote!</p>
+                    <p class="welcome-text d-none d-md-block">
+                        ¡Bienvenido a tu aventura matemática! Aquí descubrirás que las matemáticas
+                        pueden ser divertidas mientras mejoras tus habilidades con juegos increíbles.
+                    </p>
+                    <button class="btn btn-primary btn-lg mt-3" data-bs-toggle="modal" data-bs-target="#welcomeModal">
+                        ¿Cómo jugar?
+                    </button>
+                </div>
+                <div class="col-md-4">
+                    <img src="assets/mascot.png" alt="Mascota matemática" class="img-fluid mascot">
+                </div>
+            </div>
+        </header>
+
+        <h2 class="mb-4 animate__animated animate__fadeInUp">¡Escoge tu aventura matemática!</h2>
+
+        <div class="row games-container">
+            <!-- Juego 1: Operaciones Básicas -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card game-card h-100 animate__animated animate__fadeInUp">
+                    <div class="card-header bg-success text-white">
+                        <h5>Nivel 1</h5>
+                    </div>
+                    <img src="assets/operations-game.jpg" class="card-img-top" alt="Operaciones Básicas">
+                    <div class="card-body">
+                        <h5 class="card-title">Reto Numérico</h5>
+                        <p class="card-text">¡Resuelve operaciones básicas contra reloj y conviértete en un maestro del cálculo!</p>
+                        <a href="games/juego1.html" class="btn btn-primary">¡Jugar Ahora!</a>
+                    </div>
+                    <div class="card-footer">
+                        <small>Dificultad: <span class="text-success">Fácil</span></small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Juego 2: Fracciones -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card game-card h-100 animate__animated animate__fadeInUp animate__delay-1s">
+                    <div class="card-header bg-info text-white">
+                        <h5>Nivel 2</h5>
+                    </div>
+                    <img src="assets/fractions-game.jpg" class="card-img-top" alt="Fracciones">
+                    <div class="card-body">
+                        <h5 class="card-title">Mundo de Fracciones</h5>
+                        <p class="card-text">¡Compara y opera con fracciones divertidas en un mundo lleno de pizzas y pasteles!</p>
+                        <a href="games/juego2.html" class="btn btn-primary">¡Jugar Ahora!</a>
+                    </div>
+                    <div class="card-footer">
+                        <small>Dificultad: <span class="text-info">Media</span></small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Juego 3: Geometría -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card game-card h-100 animate__animated animate__fadeInUp animate__delay-2s">
+                    <div class="card-header bg-warning text-dark">
+                        <h5>Nivel 3</h5>
+                    </div>
+                    <img src="assets/geometry-game.jpg" class="card-img-top" alt="Geometría">
+                    <div class="card-body">
+                        <h5 class="card-title">Aventura Geométrica</h5>
+                        <p class="card-text">¡Identifica formas y calcula áreas mientras construyes tu propia ciudad geométrica!</p>
+                        <a href="games/juego3.html" class="btn btn-primary">¡Jugar Ahora!</a>
+                    </div>
+                    <div class="card-footer">
+                        <small>Dificultad: <span class="text-warning">Avanzada</span></small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Juego 4: Lógica -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card game-card h-100 animate__animated animate__fadeInUp animate__delay-3s">
+                    <div class="card-header bg-danger text-white">
+                        <h5>Nivel 4</h5>
+                    </div>
+                    <img src="assets/logic-game.jpg" class="card-img-top" alt="Problemas Lógicos">
+                    <div class="card-body">
+                        <h5 class="card-title">Desafío Lógico</h5>
+                        <p class="card-text">¡Resuelve problemas matemáticos interesantes y entrena tu cerebro con acertijos!</p>
+                        <a href="games/juego4.html" class="btn btn-primary">¡Jugar Ahora!</a>
+                    </div>
+                    <div class="card-footer">
+                        <small>Dificultad: <span class="text-danger">Experto</span></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personaje helper flotante -->
+        <img src="assets/teacher.webp" alt="Profesor Pitágoras" class="character" id="helperCharacter">
+
+        <footer class="mt-5">
+            <p class="mb-0">© 2025 MathTutor - Creado especialmente para estudiantes de 6to grado Created by Emmanuel Morquecho & Arturo Estrada ©</p>
+        </footer>
+    </div>
+
+    <!-- Modal de bienvenida -->
+    <div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content welcome-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="welcomeModalLabel">¡Bienvenido a MathTutor!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <img src="assets/teacher.webp" alt="Profesor de matemáticas" class="img-fluid mb-3">
+                        </div>
+                        <div class="col-md-8">
+                            <p class="welcome-text">
+                                ¡Hola futuro genio matemático! Soy el Profesor Pitágoras y te guiaré en esta increíble aventura.
+                            </p>
+                            <p class="welcome-text">
+                                En MathTutor aprenderás matemáticas jugando. Tenemos 4 mundos diferentes:
+                            </p>
+                            <ul class="welcome-text text-start">
+                                <li><strong class="text-success">Reto Numérico</strong> - Practica operaciones básicas</li>
+                                <li><strong class="text-info">Mundo de Fracciones</strong> - Domina las fracciones</li>
+                                <li><strong class="text-warning">Aventura Geométrica</strong> - Explora el mundo de las formas</li>
+                                <li><strong class="text-danger">Desafío Lógico</strong> - Resuelve problemas divertidos</li>
+                            </ul>
+                            <p class="welcome-text">
+                                ¡Cada juego te ayudará a mejorar tus habilidades matemáticas mientras te diviertes!
+                                ¿Estás listo para comenzar?
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">¡Vamos a jugar!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

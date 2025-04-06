@@ -1,0 +1,153 @@
+body {
+    background-color: #f0f8ff;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #333;
+}
+
+.hero-section {
+    background-color: #e0f7fa;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.mascot {
+    max-height: 180px;
+    animation: bounce 2s infinite alternate;
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-15px); }
+}
+
+.game-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 20px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background-color: #ffffff;
+}
+
+.game-card:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+}
+
+.card-img-top {
+    height: 160px;
+    object-fit: contain;
+    background-color: #e9f5ff;
+    padding: 15px;
+}
+
+.btn-primary {
+    background-color: #4e73df;
+    border: none;
+    border-radius: 50px;
+    padding: 8px 25px;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #3a5fc8;
+    transform: scale(1.1);
+}
+
+h1.title {
+    color: #4e73df;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    font-size: 3.2rem;
+    font-weight: bold;
+}
+
+.subtitle {
+    color: #5a6268;
+    font-size: 1.5rem;
+}
+
+.game-card .card-title {
+    color: #4e73df;
+    font-weight: bold;
+}
+
+.star-icon {
+    color: gold;
+    font-size: 1.5rem;
+    margin-right: 5px;
+}
+
+.character {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 100px;
+    cursor: pointer;
+    z-index: 100;
+    filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.3));
+}
+
+.welcome-modal .modal-content {
+    border-radius: 20px;
+    background-color: #e0f7fa;
+}
+
+.welcome-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+footer {
+    background-color: #4e73df;
+    color: white;
+    padding: 15px 0;
+    border-radius: 10px;
+    margin-top: 40px;
+}
+
+/* Animación para el personaje flotante */
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    25% { transform: translateY(-5px) rotate(2deg); }
+    50% { transform: translateY(-10px) rotate(0deg); }
+    75% { transform: translateY(-5px) rotate(-2deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.floating {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Efectos especiales para títulos y encabezados */
+h1, h2, h3, h4, h5 {
+    transition: transform 0.3s, text-shadow 0.3s;
+}
+
+h1:hover, h2:hover, h3:hover, h4:hover, h5:hover {
+    transform: scale(1.05);
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Mejoras para dispositivos móviles */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 15px;
+    }
+    
+    h1.title {
+        font-size: 2.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .character {
+        width: 80px;
+        bottom: 10px;
+        right: 10px;
+    }
+}

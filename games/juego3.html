@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventura Geométrica | MathTutor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #3a56b5;
+            --success-color: #1cc88a;
+            --danger-color: #e74a3b;
+            --warning-color: #f6c23e;
+            --light-color: #f8f9fc;
+        }
+        
+        body {
+            background-color: #f8f9fc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .game-container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 25px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(78, 115, 223, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .shape-container {
+            width: 220px;
+            height: 220px;
+            margin: 25px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            perspective: 1000px;
+        }
+        
+        .shape {
+            position: relative;
+            transition: all 0.3s;
+            animation: bounce 2s infinite ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .option-btn {
+            padding: 18px;
+            font-size: 1.2rem;
+            border-radius: 12px;
+            border: none;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .option-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            background-color: var(--secondary-color);
+        }
+        
+        .option-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .timer-container {
+            position: relative;
+            height: 45px;
+            margin: 15px 0;
+        }
+        
+        .timer {
+            font-size: 1.5rem;
+            color: var(--danger-color);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .timer-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        
+        .timer-progress {
+            height: 100%;
+            background-color: var(--danger-color);
+            width: 100%;
+            transition: width 1s linear;
+        }
+        
+        .score-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            padding: 10px 15px;
+            background-color: #f8f9fc;
+            border-radius: 10px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+        }
+        
+        .score {
+            font-size: 1.3rem;
+            color: var(--success-color);
+            font-weight: bold;
+        }
+        
+        .high-score {
+            font-size: 1.3rem;
+            color: var(--warning-color);
+            font-weight: bold;
+        }
+        
+        .feedback {
+            font-size: 1.5rem;
+            min-height: 40px;
+            margin: 15px 0;
+            text-align: center;
+            transition: all 0.3s;
+            opacity: 1;
+        }
+        
+        .feedback.correct {
+            color: var(--success-color);
+            animation: fadeOut 1.5s 0.7s forwards;
+        }
+        
+        .feedback.incorrect {
+            color: var(--danger-color);
+            animation: fadeOut 1.5s 0.7s forwards;
+        }
+        
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                min-height: 0;
+                margin: 0;
+            }
+        }
+        
+        .motivational-message {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin: 15px 0;
+            font-weight: bold;
+            min-height: 35px;
+            text-align: center;
+        }
+        
+        /* Estilos para la pantalla final */
+        .final-score {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .optimistic-message {
+            font-size: 1.4rem;
+            color: var(--success-color);
+            margin-bottom: 25px;
+        }
+        
+        /* Estilo para botones deshabilitados */
+        .option-btn:disabled {
+            opacity: 0.5;
+            transform: none;
+            box-shadow: none;
+            cursor: not-allowed !important;
+        }
+        
+        .start-btn {
+            padding: 12px 30px;
+            font-size: 1.3rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(78, 115, 223, 0.4);
+        }
+        
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(78, 115, 223, 0.5);
+        }
+        
+        .start-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .level-indicator {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin: 10px 0;
+            padding: 5px 15px;
+            background-color: rgba(78, 115, 223, 0.1);
+            border-radius: 20px;
+            display: inline-block;
+        }
+        
+        .streak-counter {
+            font-size: 1.1rem;
+            color: var(--warning-color);
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        
+        .game-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            color: white;
+        }
+        
+        .measurements {
+            font-size: 1.2rem;
+            margin: 15px 0;
+            color: #333;
+            background-color: #f8f9fc;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        /* Estilos para formas geométricas */
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 173px solid #3498db;
+        }
+        
+        .square {
+            width: 150px;
+            height: 150px;
+            background-color: #e74a3b;
+        }
+        
+        .rectangle {
+            width: 180px;
+            height: 120px;
+            background-color: #f6c23e;
+        }
+        
+        .circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #1cc88a;
+            animation: pulse 2s infinite;
+        }
+        
+        .pentagon {
+            width: 150px;
+            height: 150px;
+            background-color: #36b9cc;
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+        }
+        
+        .hexagon {
+            width: 150px;
+            height: 150px;
+            background-color: #858796;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        }
+        
+        .combo-multiplier {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--warning-color);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .combo-multiplier.show {
+            top: -40px;
+            opacity: 1;
+        }
+        
+        .combo-multiplier.hide {
+            top: -60px;
+            opacity: 0;
+        }
+        
+        .answer-effect {
+            position: absolute;
+            font-size: 2rem;
+            font-weight: bold;
+            pointer-events: none;
+            animation: floatUp 1s forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-box {
+            padding: 10px 20px;
+            background-color: #f8f9fc;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 5px;
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #858796;
+        }
+        
+        .stat-value {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .home-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            margin-top: 20px;
+            background-color: #f8f9fc;
+            color: #6e707e;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid #d1d3e2;
+        }
+        
+        .home-btn:hover {
+            background-color: #eaecf4;
+            color: #6e707e;
+        }
+
+        /* Animaciones */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <header class="game-header my-4 animate__animated animate__fadeIn">
+            <h1>Aventura Geométrica</h1>
+            <p class="lead">¡Identifica figuras y calcula áreas/perímetros antes de que se acabe el tiempo!</p>
+        </header>
+
+        <div class="game-container animate__animated animate__fadeIn">
+            <div class="score-container">
+                <div class="score">Puntos: <span id="score">0</span></div>
+                <div class="streak-counter">Racha: <span id="streak">0</span></div>
+                <div class="high-score">Récord: <span id="high-score">0</span></div>
+            </div>
+            
+            <div class="timer-container">
+                <div class="timer">
+                    <span>Tiempo: <span id="time">60</span>s</span>
+                </div>
+                <div class="timer-bar">
+                    <div class="timer-progress" id="timer-progress"></div>
+                </div>
+                <div class="combo-multiplier" id="combo-multiplier">x2</div>
+            </div>
+            
+            <div class="level-indicator" id="level-indicator">Nivel 1</div>
+            
+            <div id="question" class="question"></div>
+            <div class="shape-container" id="shape-container"></div>
+            <div id="measurements" class="measurements"></div>
+            
+            <div class="feedback" id="feedback"></div>
+            <div class="motivational-message" id="message"></div>
+            
+            <div class="options" id="options"></div>
+            
+            <button id="start-btn" class="start-btn">¡Comenzar!</button>
+        </div>
+        
+        <a href="../index.html" class="home-btn">Volver al inicio</a>
+    </div>
+
+    <script src="juego3.js"></script>
+</body>
+</html>
